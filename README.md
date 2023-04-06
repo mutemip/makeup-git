@@ -8,6 +8,43 @@ ___
 ___
 __Bold__
 
+*Italic*
+> blockquote
+
+### ordered List
+1. Mimi
+2. WEWE
+3. Yeye
+4. Wao
+
+### Unordered List
+- Wao
+- Mimi
+* mum
+* Dad
+
+
+
+---
+### LINK
+[Using Environment Variables In Django](https://djangocentral.com/environment-variables-in-django/)
+
+### Image
+![ProductList](LHG5.jpg)
+
+### Table
+| First Name | Last Name |
+| ----------- | ----------- |
+| Mkuu | Mnyonge |
+| Mifupa | Kavu |
+
+### Footnote {#1}
+[^1]: This is the footnote.
+
+
+
+### Tags
+`Code`
 `` Practicing Tags ``
 
 ``BookView``
