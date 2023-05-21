@@ -40,6 +40,16 @@ from rest_framework import viewsets
 def books(request):
     return Response('List of books', status=status.HTTP_200_OK)
 
+class BookList(APIView):
+    def get(self, request):
+        author = request.GET.get('author')
+        if(author):
+            return Response({"message": "Books by " + author}, status=status.HTTP_200_OK)
+        return Response({"message":"List of books"}, status=status.HTTP_200_OK)
+    
+    def post(self, request):
+        return Response({"title": request.data.get('title')}, status=status.HTTP_201_CREATED)
+    
 
 # class based views extending APIView
 class BookView(APIView):
