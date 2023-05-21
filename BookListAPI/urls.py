@@ -6,7 +6,7 @@ urlpatterns = [
     #path('books-list/', views.books, name="books-list"),
 
     # Routing class-based views
-    path('books/<int:pk>',views.BookView.as_view()),
+    
 
 
     # Routing classes that extend viewsets
@@ -18,4 +18,5 @@ urlpatterns = [
     #     'delete': 'destroy'
     # }))
     path("books", views.BookList.as_view()),
+    path('books/<int:pk>',views.BookView.as_view()),
 ]
