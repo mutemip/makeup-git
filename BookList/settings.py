@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'BookListAPI',
     'rest_framework',
-    'debug_toolbar'
+    'debug_toolbar',
+    'littlelemonAPI'
 ]
 
 MIDDLEWARE = [
@@ -127,7 +128,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATIC_ROOT = BASE_DIR / 'static'
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
