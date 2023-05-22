@@ -2,7 +2,9 @@ from rest_framework import serializers
 from .models import MenuItem, Category
 from decimal import Decimal
 
+# handling nested fields in relationship serializer
 
+#method 1 - create serializer and include it in related model
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
