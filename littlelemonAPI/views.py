@@ -3,9 +3,7 @@ from .models import MenuItem, Category
 from .serializers import MenuItemiSerializer
 
 
-# handling nested fields in relationship serializer
 
-#method 1 - create serializer and include it in related model
 class CategoryView(generics.ListCreateAPIView):
     queryset = MenuItem.objects.all()
     serializer_class = Category
