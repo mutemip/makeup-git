@@ -5,10 +5,10 @@ from decimal import Decimal
 # handling nested fields in relationship serializer
 
 #method 1 - create serializer and include it in related model
-# class CategorySerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Category
-#         fields = ['id', 'slug', 'title']
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['id', 'slug', 'title']
 
 class MenuItemiSerializer(serializers.ModelSerializer):
     stock = serializers.IntegerField(source = 'inventory')
