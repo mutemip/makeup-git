@@ -12,9 +12,18 @@ class CategoryView(generics.ListCreateAPIView):
     queryset = MenuItem.objects.all()
     serializer_class = Category
 
+# function based
+@api_view()
+def menu_items(request):
+    items = MenuItem.objects.select_related('category').all()
+    serialized_item = MenuItemiSerializer(items, many=True)
+    return Response(serialized_item.data)
+
+# class based
 class MenuItemsView(generics.ListCreateAPIView):
     queryset = MenuItem.objects.select_related('category').all()
     serializer_class = MenuItemiSerializer
+
     
 
 class SingleItemModelSerializer(generics.RetrieveUpdateDestroyAPIView):
