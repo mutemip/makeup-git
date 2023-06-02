@@ -10,16 +10,19 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ['id', 'slug', 'title']
 
-class MenuItemiSerializer(serializers.HyperlinkedModelSerializer):
+# class MenuItemiSerializer(serializers.HyperlinkedModelSerializer):
+class MenuItemiSerializer(serializers.ModelSerializer):
     stock = serializers.IntegerField(source = 'inventory')
     price_after_tax = serializers.SerializerMethodField(method_name='calculate_tax')
+    category = CategorySerializer(read_only=True)
+    category_id = serializers.IntegerField(write_only=True)
     # category = serializers.HyperlinkedRelatedField(
     #     queryset = Category.objects.all(),
     #     view_name= ('category-detail')
     # )
     class Meta:
         model = MenuItem
-        fields = ['id', 'title', 'price', 'stock', 'price_after_tax', 'category']
+        fields = ['id', 'title', 'price', 'stock', 'price_after_tax', 'category', 'category_id']
         # method 2 - instead of creation serializer, use depth=1 in meta class and all related fields of will be desplayed
         # depth = 1
 
