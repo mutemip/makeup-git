@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import MenuItem, Category
 from decimal import Decimal
+import bleach
 
 # handling nested fields in relationship serializer
 
@@ -20,6 +21,8 @@ class MenuItemiSerializer(serializers.ModelSerializer):
     #     queryset = Category.objects.all(),
     #     view_name= ('category-detail')
     # )
+    # def validate_title(self, value):
+    #         return bleach.clean(value)
     class Meta:
         model = MenuItem
         fields = ['id', 'title', 'price', 'stock', 'price_after_tax', 'category', 'category_id']
