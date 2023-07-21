@@ -26,7 +26,7 @@ def menu_items(request):
         if category_name:
             items = items.filter(category__title=category_name)
         if to_price:
-            items = items.filter(price__lte=to_price)
+            items = items.filter(price=to_price)
         if search:
             items = items.filter(title__icontains=search)
         if ordering:
@@ -41,7 +41,7 @@ def menu_items(request):
         serialized_item = MenuItemiSerializer(data=request.data)
         serialized_item.is_valid(raise_exception=True)
         serialized_item.save()
-        return Response(serialized_item.validated_data, status.HTTP_202_CREATED)
+        return Response(serialized_item.validated_data, status.HTTP_201_CREATED)
 
 @api_view()
 def sengle_item(request, pk):
