@@ -7,7 +7,8 @@ from rest_framework.decorators import api_view
 # for pagenation
 from django.core.paginator import Paginator, EmptyPage
 
-
+#CBV
+from rest_framework import viewsets
 
 
 
@@ -99,3 +100,10 @@ def category_detail(request, pk):
     category = get_object_or_404(Category, pk=pk)
     serialized_category = CategorySerializer(category)
     return Response(serialized_category.data)
+
+
+#CBV using viewsets
+class MenuItemViewSet(viewsets.ModelViewSet):
+    queryset = MenuItem.objects.select_related('category').all()
+    serializer_class = MenuItemiSerializer
+    
