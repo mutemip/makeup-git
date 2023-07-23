@@ -106,4 +106,6 @@ def category_detail(request, pk):
 class MenuItemViewSet(viewsets.ModelViewSet):
     queryset = MenuItem.objects.select_related('category').all()
     serializer_class = MenuItemiSerializer
+    # ordering & sorting
+    ordering_fields = ['price', 'inventory']
     
