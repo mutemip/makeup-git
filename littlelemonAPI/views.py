@@ -33,18 +33,35 @@ def menu_items(request):
         page = request.query_params.get('page', default=1)
         
         #filtering items 
+        """
+        127.0.0.1:8000/api/menu-item1?category_name=beverages
+        """
         if category_name:
             items = items.filter(category__title=category_name)
+        """
+        127.0.0.1:8000/api/menu-item1?to_price=120
+        """
         if to_price:
             items = items.filter(price=to_price)
+        """
+        127.0.0.1:8000/api/menu-item1?search=tilapia
+        """
         if search:
             items = items.filter(title__icontains=search)
+        """
+        
+        """
         if ordering:
             ordering_fields = ordering.split(",")
             items = items.order_by(*ordering_fields)
         
         # initiating paginator object
         paginator = Paginator(items, per_page=perpage)
+        """
+        Try these:
+        127.0.0.1:8000/api/menu-item1
+        127.0.0.1:8000/api/menu-item1?perpage=3&page=1
+        """
         try:
             items = paginator.page(number=page)
         except EmptyPage:
