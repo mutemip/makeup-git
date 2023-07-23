@@ -115,4 +115,29 @@ class MenuItemViewSet(viewsets.ModelViewSet):
     category__title
     """
     search_fields = ['title', 'category__title'] 
+
+"""
+NB:
+caching: a technique of serving saved results instaed of creating new one whenver it's requested
+    - reduces the server load &
+    - Bandwidth consumption
+caching can be split in multiple layers
+can be done on:
+    - reverse proxy
+    - web server 
+    - database server
+
+1. Caching on database layer: done to prevent excessive read-write operation in the storage
+ - Uses Query cache - where SQL query & query results are stored in memory.
+ If no change of data, the stored data will be served whenever a request is made, saving processing power and time.
+
+2. Caching on web server: runs server side scripts which can cache data if it's certain that there was no changes on it.
+It caches data in a simple files or databases or caching tools like redis, Memcached etc - which can save database connections everytime.
+Server-side scripts cache response results in a separate cache storage, which could be simple files, or a database, or in caching tools.
+
+3. Reverse Proxy: used by trafic heavy applications on top of other servers to distribute the requests evenly.
+The reverse proxy server caches response results for a certain amount of time in caching headers received from the web server.
+
+4. Client cache: Reverse proxies or web servers can send responses with caching headers, which tell the client to cache the request for a specific time.
+"""
     
