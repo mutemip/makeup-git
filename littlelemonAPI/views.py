@@ -10,6 +10,8 @@ from django.core.paginator import Paginator, EmptyPage
 
 
 
+
+
 class CategoryView(generics.ListCreateAPIView):
     queryset = MenuItem.objects.all()
     serializer_class = Category
@@ -49,7 +51,7 @@ def menu_items(request):
         if search:
             items = items.filter(title__icontains=search)
         """
-        
+        127.0.0.1:8000/api/menu-item1?order_by=category
         """
         if ordering:
             ordering_fields = ordering.split(",")
