@@ -108,4 +108,11 @@ class MenuItemViewSet(viewsets.ModelViewSet):
     serializer_class = MenuItemiSerializer
     # ordering & sorting
     ordering_fields = ['price', 'inventory']
+    # search
+    """
+    Searching Nested fields
+    RelatedModelName__FieldName - model=category, field=title
+    category__title
+    """
+    search_fields = ['title', 'category__title'] 
     
