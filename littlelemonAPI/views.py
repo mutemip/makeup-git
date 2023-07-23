@@ -4,6 +4,8 @@ from .models import MenuItem, Category
 from .serializers import MenuItemiSerializer, CategorySerializer
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
+# for pagenation
+from django.core.paginator import Paginator, EmptyPage
 
 
 
@@ -17,10 +19,18 @@ class CategoryView(generics.ListCreateAPIView):
 def menu_items(request):
     if request.method == 'GET':
         items = MenuItem.objects.select_related('category').all()
+        # filter per field
         category_name = request.query_params.get('category')
         to_price = request.query_params.get('to_price')
+        # search filter
         search = request.query_params.get('search')
+
+        # ordering filter
         ordering = request.query_params.get('ordering')
+
+        # for pagenation filter
+        perpage = request.query_params.get('perpage', default=2)
+        page = request.query_params.get('page', default=1)
         
         #filtering items 
         if category_name:
@@ -33,7 +43,12 @@ def menu_items(request):
             ordering_fields = ordering.split(",")
             items = items.order_by(*ordering_fields)
         
-        
+        # initiating paginator object
+        paginator = Paginator(items, per_page=perpage)
+        try:
+            items = paginator.page(number=page)
+        except EmptyPage:
+            items = []
 
         serialized_item = MenuItemiSerializer(items, many=True)
         return Response(serialized_item.data)
@@ -44,7 +59,7 @@ def menu_items(request):
         return Response(serialized_item.validated_data, status.HTTP_201_CREATED)
 
 @api_view()
-def sengle_item(request, pk):
+def single_item(request, pk):
     item = get_object_or_404(MenuItem, pk=pk)
     serialized_item = MenuItemiSerializer(item)
     return Response(serialized_item.data)
