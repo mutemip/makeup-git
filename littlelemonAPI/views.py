@@ -10,6 +10,10 @@ from django.core.paginator import Paginator, EmptyPage
 #CBV
 from rest_framework import viewsets
 
+# securing API endpoint
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes
+
 
 
 
@@ -115,6 +119,11 @@ class MenuItemViewSet(viewsets.ModelViewSet):
     category__title
     """
     search_fields = ['title', 'category__title'] 
+
+@api_view()
+@permission_classes([IsAuthenticated])
+def secret_token(request):
+    return Response({"message": "some secret message"})
 
 """
 NB:
