@@ -140,4 +140,19 @@ The reverse proxy server caches response results for a certain amount of time in
 
 4. Client cache: Reverse proxies or web servers can send responses with caching headers, which tell the client to cache the request for a specific time.
 """
+
+"""
+Token Based Authentication
+
+- Users send their username and password once->
+if cridentials are correct, A unique token is generated on the server. 
+- When client makes a new API request, the token is included 
+- server side scripts checks whether its valid or expired.
+- if valid, it matches the user with respective user.
+
+- The token is validated with help of TokenAuthentication class in auth token App in the DRF
+
+This process helps avoid sending username and password in every request.
+"""
+
     
