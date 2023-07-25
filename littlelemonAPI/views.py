@@ -125,6 +125,15 @@ class MenuItemViewSet(viewsets.ModelViewSet):
 def secret_token(request):
     return Response({"message": "some secret message"})
 
+
+@api_view()
+@permission_classes([IsAuthenticated])
+def manager_view(request):
+    if request.user.groups.filter(name="manager").exists():
+        return Response({"message":"Only managers can see this!!"})
+    else:
+        return Response({"message":"You are not authorized!!"}, 403)
+
 """
 NB:
 caching: a technique of serving saved results instaed of creating new one whenver it's requested

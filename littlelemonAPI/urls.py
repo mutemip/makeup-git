@@ -1,6 +1,9 @@
 from django.urls import path
 from . import views
 
+# to generate tokens
+from rest_framework.authtoken.views import obtain_auth_token
+
 urlpatterns = [
     # CBV urls using generics
     path('menu-item', views.MenuItemsView.as_view()), #CBV
@@ -15,5 +18,10 @@ urlpatterns = [
     path('menu-item1/<int:pk>', views.single_item),
     # path('category', views.CategoryView.as_view()),
     path('category/<int:pk>',views.category_detail, name='category-detail'),
-    path('secret', views.secret_token)
+    path('secret', views.secret_token),
+    path('manager-view', views.manager_view),
+
+    # for token generation
+    # only accepts HTTP POST requests
+    path('api-token', obtain_auth_token)
 ]
