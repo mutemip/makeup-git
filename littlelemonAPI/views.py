@@ -112,6 +112,8 @@ def category_detail(request, pk):
 
 #CBV using viewsets
 class MenuItemViewSet(viewsets.ModelViewSet):
+    # throttling in CBV
+    throttle_classes = [AnonRateThrottle, TenCallsPerMinute] # Or -> UserRateThrottle
     queryset = MenuItem.objects.select_related('category').all()
     serializer_class = MenuItemiSerializer
     # ordering & sorting
@@ -123,6 +125,8 @@ class MenuItemViewSet(viewsets.ModelViewSet):
     category__title
     """
     search_fields = ['title', 'category__title'] 
+
+
 
 # testing 
 @api_view()

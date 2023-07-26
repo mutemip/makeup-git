@@ -103,7 +103,8 @@ REST_FRAMEWORK = {
         'rest_framework_yaml.renderers.YAMLRenderer'
     ],
     'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend','rest_framework.filters.OrderingFilter',
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.OrderingFilter',
         'rest_framework.filters.SearchFilter',
     ],
     # for token authentication
@@ -111,11 +112,18 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES':[
         'rest_framework.authentication.TokenAuthentication',
     ],
+    # number of requests per given time
     'DEFAULT_THROTTLE_RATES':{
         'anon': '2/minute',
-        'user': '2/minute',
+        'user': '5/minute',
         'ten' : '10/minute', # custome throttle policy conf
     },
+    # for CBV throttling
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+
         
     # for pagination
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
