@@ -18,8 +18,13 @@ urlpatterns = [
     path('menu-item1/<int:pk>', views.single_item),
     # path('category', views.CategoryView.as_view()),
     path('category/<int:pk>',views.category_detail, name='category-detail'),
-    path('secret', views.secret_token),
+    
+    #API endpoints authorization layer and user role management
+    path('secret', views.secret_view),
     path('manager-view', views.manager_view),
+
+    # throttling endpoint
+    path("throttle", views.throttle_check),
 
     # for token generation
     # only accepts HTTP POST requests

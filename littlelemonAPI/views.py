@@ -7,12 +7,15 @@ from rest_framework.decorators import api_view
 # for pagenation
 from django.core.paginator import Paginator, EmptyPage
 
+# for throttling
+from rest_framework.throttling import AnonRateThrottle
+
 #CBV
 from rest_framework import viewsets
 
 # securing API endpoint
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import permission_classes
+from rest_framework.decorators import permission_classes, throttle_classes
 
 
 
@@ -120,12 +123,15 @@ class MenuItemViewSet(viewsets.ModelViewSet):
     """
     search_fields = ['title', 'category__title'] 
 
+# testing 
 @api_view()
 @permission_classes([IsAuthenticated])
-def secret_token(request):
+def secret_view(request):
     return Response({"message": "some secret message"})
 
 
+# testing on managing user groups 
+# adding authorization layer of security via user roles
 @api_view()
 @permission_classes([IsAuthenticated])
 def manager_view(request):
@@ -134,6 +140,10 @@ def manager_view(request):
     else:
         return Response({"message":"You are not authorized!!"}, 403)
 
+@api_view()
+@throttle_classes([AnonRateThrottle])
+def throttle_check(request):
+    return Response({"message":"throttling test!"})
 """
 NB:
 caching: a technique of serving saved results instaed of creating new one whenver it's requested
@@ -171,6 +181,17 @@ if cridentials are correct, A unique token is generated on the server.
 - The token is validated with help of TokenAuthentication class in auth token App in the DRF
 
 This process helps avoid sending username and password in every request.
+"""
+
+"""
+Throttling / rate limiting
+
+Helps to limit amount of time an API can be accessed in given time.
+2 Types of throttling:
+    - Anonymous Throttling for unauthenticated users -> used when there is no token on the API header.
+    - User Throttling for authenticated users -> Used when there are valid tokens
+
+
 """
 
     
