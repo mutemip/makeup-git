@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view
 from django.core.paginator import Paginator, EmptyPage
 
 # for throttling
-from rest_framework.throttling import AnonRateThrottle
+from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 
 #CBV
 from rest_framework import viewsets
@@ -140,10 +140,19 @@ def manager_view(request):
     else:
         return Response({"message":"You are not authorized!!"}, 403)
 
+# for anonymous users
 @api_view()
 @throttle_classes([AnonRateThrottle])
 def throttle_check(request):
     return Response({"message":"throttling test!"})
+
+
+# for authenticated users
+@api_view()
+@permission_classes([IsAuthenticated])
+@throttle_classes([UserRateThrottle])
+def throttle_user(request):
+    return Response({"message":"Only for authenticated users!!"})
 """
 NB:
 caching: a technique of serving saved results instaed of creating new one whenver it's requested

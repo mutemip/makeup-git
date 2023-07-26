@@ -25,6 +25,7 @@ urlpatterns = [
 
     # throttling endpoint
     path("throttle", views.throttle_check),
+    path("auth-throttle", views.throttle_user),
 
     # for token generation
     # only accepts HTTP POST requests
