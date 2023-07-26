@@ -113,7 +113,8 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_THROTTLE_RATES':{
         'anon': '2/minute',
-        'user': '2/minute'
+        'user': '2/minute',
+        'ten' : '10/minute', # custome throttle policy conf
     },
         
     # for pagination

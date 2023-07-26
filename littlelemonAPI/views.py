@@ -9,6 +9,7 @@ from django.core.paginator import Paginator, EmptyPage
 
 # for throttling
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
+from .throttling import TenCallsPerMinute
 
 #CBV
 from rest_framework import viewsets
@@ -150,7 +151,8 @@ def throttle_check(request):
 # for authenticated users
 @api_view()
 @permission_classes([IsAuthenticated])
-@throttle_classes([UserRateThrottle])
+# @throttle_classes([UserRateThrottle])
+@throttle_classes([TenCallsPerMinute]) # using custome throttling
 def throttle_user(request):
     return Response({"message":"Only for authenticated users!!"})
 """
