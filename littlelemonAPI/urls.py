@@ -10,7 +10,7 @@ urlpatterns = [
     path('menu-item/<int:pk>', views.SingleItemView.as_view()),
 
     # CBV urls using ViewSets
-    path('menuitem', views.MenuItemViewSet.as_view({'get':'list'})),
+    path('menuitem', views.MenuItemViewSet.as_view({'get':'list', 'post': 'create'})),
     path('menuitem/<int:pk>', views.MenuItemViewSet.as_view({'get':'retrieve'})),
 
     # FBV urls
