@@ -115,7 +115,7 @@ REST_FRAMEWORK = {
     # number of requests per given time
     'DEFAULT_THROTTLE_RATES':{
         'anon': '2/minute',
-        'user': '5/minute',
+        'user': '2/minute',
         'ten' : '10/minute', # custome throttle policy conf
     },
     # for CBV throttling

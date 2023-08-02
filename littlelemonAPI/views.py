@@ -125,7 +125,14 @@ class MenuItemViewSet(viewsets.ModelViewSet):
     category__title
     """
     search_fields = ['title', 'category__title'] 
-
+    
+    # conditional throtthling for any POST requests
+    def get_throttles(self):
+        if self.action == "create":
+            throttle_classes = [UserRateThrottle]
+        else:
+            throttle_classes = []
+        return [throttle() for throttle in throttle_classes]
 
 
 # testing 
