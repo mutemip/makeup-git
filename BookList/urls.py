@@ -20,6 +20,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('api/', include('BookListAPI.urls')), 
     path('api/', include('littlelemonAPI.urls')),
-
+    # debug toolbar
     path('__debug__/', include('debug_toolbar.urls')),
+
+    # djoser URLS
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')), 
 ]

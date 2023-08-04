@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'debug_toolbar',
-    'littlelemonAPI'
+    'littlelemonAPI',
+    'djoser'
 ]
 
 MIDDLEWARE = [
@@ -111,6 +112,8 @@ REST_FRAMEWORK = {
     # How it works -> Authorization: Token <generated_token>
     'DEFAULT_AUTHENTICATION_CLASSES':[
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+
     ],
     # number of requests per given time
     'DEFAULT_THROTTLE_RATES':{
@@ -130,6 +133,11 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 2
 
 
+}
+
+DJOSER = {
+    "USER_ID_FIELD": "username", # specify field in user model that acts as PK
+    # "LOGIN_FIELD": "email" # for using email as Username
 }
 
 # Password validation
