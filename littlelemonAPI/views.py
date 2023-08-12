@@ -15,7 +15,8 @@ from .throttling import TenCallsPerMinute
 from rest_framework import viewsets
 
 # securing API endpoint
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from django.contrib.auth.models import User, Group
 from rest_framework.decorators import permission_classes, throttle_classes
 
 
@@ -144,13 +145,30 @@ def secret_view(request):
 
 # testing on managing user groups 
 # adding authorization layer of security via user roles
-@api_view()
-@permission_classes([IsAuthenticated])
+@api_view(['POST', 'DELETE'])
+@permission_classes([IsAuthenticated, IsAdminUser])
 def manager_view(request):
-    if request.user.groups.filter(name="manager").exists():
-        return Response({"message":"Only managers can see this!!"})
-    else:
-        return Response({"message":"You are not authorized!!"}, 403)
+    # if request.user.groups.filter(name="manager").exists():
+    #     return Response({"message":"Only managers can see this!!"})
+    # else:
+    #     return Response({"message":"You are not authorized!!"}, 403)
+    username = request.data['username']
+    if username:
+        user = get_object_or_404(User, username=username)
+        managers = Group.objects.get(name="manager")
+        if request.method == 'POST':
+            managers.user_set.add(user)
+            if request.user.groups.filter(name="manager").exists():
+                return Response({"message": "User Already in!"})
+            else:
+                return Response({"message": "User Added to group!"})
+        elif request.method == "DELETE":
+            managers.user_set.remove(user)
+            return Response({"message": f"{user} removed from the group."})
+            
+        
+    return Response({"message": "Error!!"}, status.HTTP_400_BAD_REQUEST)
+
 
 # for anonymous users
 @api_view()

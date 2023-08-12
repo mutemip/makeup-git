@@ -21,7 +21,7 @@ urlpatterns = [
     
     #API endpoints authorization layer and user role management
     path('secret', views.secret_view),
-    path('manager-view', views.manager_view),
+    path('groups/manager/users', views.manager_view),
 
     # throttling endpoint
     path("throttle", views.throttle_check),
