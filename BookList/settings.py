@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -49,7 +50,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'debug_toolbar',
     'littlelemonAPI',
-    'djoser'
+    'djoser',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -111,15 +113,16 @@ REST_FRAMEWORK = {
     # for token authentication
     # How it works -> Authorization: Token <generated_token>
     'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
 
     ],
     # number of requests per given time
     'DEFAULT_THROTTLE_RATES':{
-        'anon': '2/minute',
-        'user': '2/minute',
-        'ten' : '10/minute', # custome throttle policy conf
+        'anon':  '5/minute',
+        'user': '5/minute',
+        'ten' : '5/minute', # custome throttle policy conf
     },
     # for CBV throttling
     'DEFAULT_THROTTLE_CLASSES': [
@@ -170,6 +173,9 @@ USE_I18N = True
 
 USE_TZ = True
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

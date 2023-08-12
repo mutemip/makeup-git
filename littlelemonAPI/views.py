@@ -154,7 +154,8 @@ def manager_view(request):
 
 # for anonymous users
 @api_view()
-@throttle_classes([AnonRateThrottle])
+@permission_classes([IsAuthenticated])
+@throttle_classes([UserRateThrottle])
 def throttle_check(request):
     return Response({"message":"throttling test!"})
 
