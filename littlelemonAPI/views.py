@@ -41,7 +41,7 @@ def menu_items(request):
         ordering = request.query_params.get('ordering')
 
         # for pagenation filter
-        perpage = request.query_params.get('perpage', default=2)
+        perpage = request.query_params.get('perpage', default=5)
         page = request.query_params.get('page', default=1)
         
         #filtering items 

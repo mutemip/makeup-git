@@ -122,7 +122,7 @@ REST_FRAMEWORK = {
     ],
     # number of requests per given time
     'DEFAULT_THROTTLE_RATES':{
-        'anon':  '5/minute',
+        'anon':  '2/minute',
         'user': '5/minute',
         'ten' : '5/minute', # custome throttle policy conf
     },
