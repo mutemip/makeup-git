@@ -186,12 +186,15 @@ def throttle_check(request):
 def throttle_user(request):
     return Response({"message":"Only for authenticated users!!"})
 
+
+
 class RatingsView(generics.ListCreateAPIView):
     queryset = Rating.objects.all()
     serializer_class = RatingSerializer
 
     def get_permissions(self):
-        if (self.request.method == 'GET'):
+        if(self.request.method=='GET'):
             return []
-        return(IsAuthenticated())
+
+        return [IsAuthenticated()]
     

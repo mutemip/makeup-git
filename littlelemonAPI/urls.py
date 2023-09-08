@@ -29,5 +29,8 @@ urlpatterns = [
 
     # for token generation
     # only accepts HTTP POST requests
-    path('api-token', obtain_auth_token)
+    path('api-token', obtain_auth_token),
+
+    #ratings API
+    path('rating', views.RatingsView.as_view()),
 ]

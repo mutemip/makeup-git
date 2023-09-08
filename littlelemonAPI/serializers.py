@@ -35,19 +35,24 @@ class MenuItemiSerializer(serializers.ModelSerializer):
     def calculate_tax(self, product:MenuItem):
         return product.price * Decimal(1.16)
     
-class RatingSerializer(serializers.ModelSerializer):
+class RatingSerializer (serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.all(), defualt=serializers.CurrentUserDefault()
+            queryset=User.objects.all(),
+            default=serializers.CurrentUserDefault()
     )
+
     class Meta:
         model = Rating
-        fields = ['menuitem_id', 'rating']
-        validators = UniqueTogetherValidator(queryset=Rating.objects.all(), fields=['user', 'menuitem_id', 'rating'])
-        extra_kwargs = {
-            'rating':{
-                'max_value': 5, 
-                'min_value': 0
-            }
-        }
+        fields = ['user', 'menuitem_id', 'rating']
 
+    validators = [
+        UniqueTogetherValidator(
+            queryset=Rating.objects.all(),
+            fields=['user', 'menuitem_id']
+        )
+    ]
+
+    extra_kwargs = {
+        'rating': {'min_value': 0, 'max_value':5},
+    }
     
