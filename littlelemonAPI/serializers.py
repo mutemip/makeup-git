@@ -1,7 +1,10 @@
 from rest_framework import serializers
-from .models import MenuItem, Category
+from .models import MenuItem, Category, Rating
 from decimal import Decimal
-import bleach
+# import bleach
+from rest_framework.validators import UniqueTogetherValidator
+from django.contrib.auth.models import User
+
 
 # handling nested fields in relationship serializer
 
@@ -31,4 +34,20 @@ class MenuItemiSerializer(serializers.ModelSerializer):
 
     def calculate_tax(self, product:MenuItem):
         return product.price * Decimal(1.16)
+    
+class RatingSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(), defualt=serializers.CurrentUserDefault()
+    )
+    class Meta:
+        model = Rating
+        fields = ['menuitem_id', 'rating']
+        validators = UniqueTogetherValidator(queryset=Rating.objects.all(), fields=['user', 'menuitem_id', 'rating'])
+        extra_kwargs = {
+            'rating':{
+                'max_value': 5, 
+                'min_value': 0
+            }
+        }
+
     

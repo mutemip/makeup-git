@@ -1,7 +1,7 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
-from .models import MenuItem, Category
-from .serializers import MenuItemiSerializer, CategorySerializer
+from .models import MenuItem, Category, Rating
+from .serializers import MenuItemiSerializer, CategorySerializer, RatingSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 # for pagenation
@@ -186,5 +186,12 @@ def throttle_check(request):
 def throttle_user(request):
     return Response({"message":"Only for authenticated users!!"})
 
+class RatingsView(generics.ListCreateAPIView):
+    queryset = Rating.objects.all()
+    serializer_class = RatingSerializer
 
+    def get_permissions(self):
+        if (self.request.method == 'GET'):
+            return []
+        return(IsAuthenticated())
     
