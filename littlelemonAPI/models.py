@@ -21,4 +21,4 @@ class MenuItem(models.Model):
 class Rating(models.Model):
     menuitem_id = models.SmallIntegerField()
     rating =  models.SmallIntegerField()
-    category = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

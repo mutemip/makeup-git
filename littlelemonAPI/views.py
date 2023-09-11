@@ -196,5 +196,5 @@ class RatingsView(generics.ListCreateAPIView):
         if(self.request.method=='GET'):
             return []
 
-        return [IsAuthenticated()]
+        return[IsAuthenticated()]
     
