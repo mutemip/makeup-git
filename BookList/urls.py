@@ -20,17 +20,28 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenBlacklistView,
 )
+# to generate tokens
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # djoser URLS
+    path('api/', include('djoser.urls')),
+    # path('api/users/me', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')), 
+
+    # for token generation
+    # only accepts HTTP POST requests
+    # User registration and token generation endpoints
+    path('token/login', obtain_auth_token),
+
+
     # path('api/', include('BookListAPI.urls')), 
     path('api/', include('littlelemonAPI.urls')),
     # debug toolbar
     path('__debug__/', include('debug_toolbar.urls')),
 
-    # djoser URLS
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken')), 
+
 
     # # simple_jwt
     # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

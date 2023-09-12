@@ -1,8 +1,7 @@
 from django.urls import path
 from . import views
 
-# to generate tokens
-from rest_framework.authtoken.views import obtain_auth_token
+
 
 urlpatterns = [
     # CBV urls using generics
@@ -27,9 +26,7 @@ urlpatterns = [
     path("throttle", views.throttle_check),
     path("auth-throttle", views.throttle_user),
 
-    # for token generation
-    # only accepts HTTP POST requests
-    path('api-token', obtain_auth_token),
+
 
     #ratings API
     path('rating', views.RatingsView.as_view()),
