@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'littlelemonAPI',
     'djoser',
     # 'rest_framework_simplejwt',
-    # 'rest_framework_simplejwt.token_blacklist',
+    # 'rest_framework_simplejwt.token_blacklist',  #  for token blacklisting
 
 ]
 
@@ -145,6 +145,11 @@ DJOSER = {
     # "LOGIN_FIELD": "email" # for using email as Username
 }
 
+# SIMPLE_JWT = {
+#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+# }
+
+
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -175,9 +180,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-# SIMPLE_JWT = {
-#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
-# }
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
