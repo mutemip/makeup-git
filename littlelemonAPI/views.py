@@ -98,6 +98,11 @@ class MenuItemsView(generics.ListCreateAPIView):
     queryset = MenuItem.objects.select_related('category').all()
     serializer_class = MenuItemiSerializer
 
+    ordering_fields = ['price', 'inventory']
+    search_fields = ['title', 'category__title'] 
+    
+
+
     
 
 class SingleItemView(generics.RetrieveUpdateDestroyAPIView):
@@ -159,16 +164,37 @@ def manager_view(request):
         if request.method == 'POST':
             managers.user_set.add(user)
             if request.user.groups.filter(name="manager").exists():
-                return Response({"message": "User Already in!"})
+                return Response({"message": "User Already in manager group!"})
             else:
-                return Response({"message": "User Added to group!"})
+                return Response({"message": "User Added to  manager group!"})
         elif request.method == "DELETE":
             managers.user_set.remove(user)
-            return Response({"message": f"{user} removed from the group."})
+            return Response({"message": f"{user} removed from the manager group."})
             
         
     return Response({"message": "Error!!"}, status.HTTP_400_BAD_REQUEST)
 
+# @api_view(['POST', 'DELETE'])
+# @permission_classes([IsAuthenticated, IsAdminUser])
+# def delivery_view(request):
+#     username = request.data['username']
+#     if username:
+#         user = get_object_or_404(User, username=username)
+#         deliverys = Group.objects.get(name="delivery")
+#         if request.method == 'POST':
+#             deliverys.user_set.add(user)
+#             if request.user.groups.filter(name="delivery").exixts():
+#                 return Response({"message": "User already in Delivery group!"})
+#             else:
+#                 return Response({"message": "User added to delivery group"})
+#         elif request.method == "DELETE":
+#             deliverys.user_set.remove(user)
+#             return Response({"message": f"{user} removed from the delivery group"})
+#     return Response({"message": "Error!!"}, status.HTTP_400_BAD_REQUEST)
+@api_view()
+@permission_classes([IsAuthenticated])
+def me(request):
+    return Response(request.user.email)
 
 # for anonymous users
 @api_view()
@@ -196,5 +222,5 @@ class RatingsView(generics.ListCreateAPIView):
         if(self.request.method=='GET'):
             return []
 
-        return[IsAuthenticated()]
+        return [IsAuthenticated()]
     

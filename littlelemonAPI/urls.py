@@ -5,11 +5,11 @@ from . import views
 
 urlpatterns = [
     # CBV urls using generics
-    path('menu-item', views.MenuItemsView.as_view()), #CBV
+    path('menuitem', views.MenuItemsView.as_view()), #CBV
     path('menu-item/<int:pk>', views.SingleItemView.as_view()),
 
     # CBV urls using ViewSets
-    path('menuitem', views.MenuItemViewSet.as_view({'get':'list', 'post': 'create'})),
+    path('menu-items', views.MenuItemViewSet.as_view({'get':'list', 'post': 'create'})),
     path('menuitem/<int:pk>', views.MenuItemViewSet.as_view({'get':'retrieve'})),
 
     # FBV urls
@@ -20,13 +20,18 @@ urlpatterns = [
     
     #API endpoints authorization layer and user role management
     path('secret', views.secret_view),
+    #manager view
     path('groups/manager/users', views.manager_view),
+
+    # delivery view
+    # path("groups/delivery/users", views.delivery_view),
 
     # throttling endpoint
     path("throttle", views.throttle_check),
     path("auth-throttle", views.throttle_user),
 
-
+    # me endpoint
+    path("/users/me", views.me, name="me"),
 
     #ratings API
     path('rating', views.RatingsView.as_view()),

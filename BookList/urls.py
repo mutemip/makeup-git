@@ -27,8 +27,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # djoser URLS
     path('api/', include('djoser.urls')),
-    # path('api/users/me', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken')), 
+    path('api/', include('djoser.urls.authtoken')), 
+    
 
     # for token generation
     # only accepts HTTP POST requests
