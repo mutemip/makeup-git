@@ -18,7 +18,7 @@ from django.urls import path, include
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
-    TokenBlacklistView,
+    # TokenBlacklistView,
 )
 # to generate tokens
 from rest_framework.authtoken.views import obtain_auth_token
@@ -28,7 +28,6 @@ urlpatterns = [
     # djoser URLS
     path('api/', include('djoser.urls')),
     path('api/', include('djoser.urls.authtoken')), 
-    
 
     # for token generation
     # only accepts HTTP POST requests

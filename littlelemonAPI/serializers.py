@@ -1,5 +1,6 @@
+from datetime import datetime
 from rest_framework import serializers
-from .models import MenuItem, Category, Rating
+from .models import MenuItem, Category, Rating,  Cart, Order, OrderItem
 from decimal import Decimal
 # import bleach
 from rest_framework.validators import UniqueTogetherValidator
@@ -56,3 +57,20 @@ class RatingSerializer (serializers.ModelSerializer):
         'rating': {'min_value': 0, 'max_value':5},
     }
     
+class OrderSerializer(serializers.ModelSerializer):
+    Date = serializers.SerializerMethodField()
+    date = serializers.DateTimeField(write_only=True, default=datetime.now())
+    order_items = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Order
+        fields = ['id', 'user', 'delivery_crew', 'status', 'total', 'date', 'Date']
+        extra_kwargs = {
+            'total': {'read_only': True}
+        }
+
+    def get_date(self, obj):
+        return obj.date.strftime('%Y-%m-%d')
+    
+    def get_order_items(self, obj):
+        order_items = OrderItem.objects.filter

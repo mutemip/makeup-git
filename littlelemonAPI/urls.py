@@ -10,7 +10,7 @@ urlpatterns = [
 
     # CBV urls using ViewSets
     path('menu-items', views.MenuItemViewSet.as_view({'get':'list', 'post': 'create'})),
-    path('menuitem/<int:pk>', views.MenuItemViewSet.as_view({'get':'retrieve'})),
+    path('menu-items/<int:pk>', views.MenuItemViewSet.as_view({'get':'retrieve'})),
 
     # FBV urls
     path('menu-item1', views.menu_items), #FBV
@@ -31,7 +31,7 @@ urlpatterns = [
     path("auth-throttle", views.throttle_user),
 
     # me endpoint
-    path("/users/me", views.me, name="me"),
+    path("users/me", views.me, name="me"),
 
     #ratings API
     path('rating', views.RatingsView.as_view()),
