@@ -15,11 +15,37 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    # TokenBlacklistView,
+)
+# to generate tokens
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # djoser URLS
+    path('api/', include('djoser.urls')),
+    path('api/', include('djoser.urls.authtoken')), 
+
+    # for token generation
+    # only accepts HTTP POST requests
+    # User registration and token generation endpoints
+    path('token/login', obtain_auth_token),
+
+
     # path('api/', include('BookListAPI.urls')), 
     path('api/', include('littlelemonAPI.urls')),
-
+    # debug toolbar
     path('__debug__/', include('debug_toolbar.urls')),
+
+
+
+    # # simple_jwt
+    # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    # # simplejwt_token blacklister url
+    # path('api/token/blacklist/', TokenBlacklistView.as_view(), name="token_blacklist"),
 ]

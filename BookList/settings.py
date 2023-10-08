@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -46,8 +47,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'BookListAPI',
     'rest_framework',
+    'rest_framework.authtoken',
     'debug_toolbar',
-    'littlelemonAPI'
+    'littlelemonAPI',
+    'djoser',
+    # 'rest_framework_simplejwt',
+    # 'rest_framework_simplejwt.token_blacklist',  #  for token blacklisting
+
 ]
 
 MIDDLEWARE = [
@@ -91,6 +97,57 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        # 'rest_framework.parsers.JSONParser',
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework_xml.renderers.XMLRenderer',
+        'rest_framework_csv.renderers.CSVRenderer',
+        'rest_framework_yaml.renderers.YAMLRenderer'
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.OrderingFilter',
+        'rest_framework.filters.SearchFilter',
+    ],
+    # for token authentication
+    # How it works -> Authorization: Token <generated_token>
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+
+    ],
+    # number of requests per given time
+    'DEFAULT_THROTTLE_RATES':{
+        'anon':  '2/minute',
+        'user': '5/minute',
+        'ten' : '5/minute', # custome throttle policy conf
+    },
+    # for CBV throttling
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+
+        
+    # for pagination
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 2
+
+
+}
+
+DJOSER = {
+    "USER_ID_FIELD": "username", # specify field in user model that acts as PK
+    # "LOGIN_FIELD": "email" # for using email as Username
+}
+
+# SIMPLE_JWT = {
+#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+# }
 
 
 # Password validation
