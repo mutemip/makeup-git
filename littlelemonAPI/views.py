@@ -1,30 +1,6 @@
-<<<<<<< HEAD
 from rest_framework import generics
 from .models import MenuItem, Category
 from .serializers import MenuItemiSerializer, CategorySerializer
-=======
-from rest_framework import generics, status
-from rest_framework.response import Response
-from .models import MenuItem, Category, Rating
-from .serializers import MenuItemiSerializer, CategorySerializer, RatingSerializer
-from django.shortcuts import get_object_or_404
-from rest_framework.decorators import api_view
-# for pagenation
-from django.core.paginator import Paginator, EmptyPage
-
-# for throttling
-from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
-from .throttling import TenCallsPerMinute
-
-#CBV
-from rest_framework import viewsets
-
-# securing API endpoint
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from django.contrib.auth.models import User, Group
-from rest_framework.decorators import permission_classes, throttle_classes
-
->>>>>>> f30adedca8198d03a249422a71d0cb87cbdf23b6
 
 
 
