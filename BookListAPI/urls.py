@@ -19,4 +19,5 @@ urlpatterns = [
     # }))
     path("books", views.BookList.as_view()),
     path('books/<int:pk>',views.BookView.as_view()),
+    path('review/', views.reviews_view)
 ]

@@ -4,4 +4,4 @@ from .models import Reviews
 class ReviewsForms(forms.ModelForm):
     class Meta:
         model = Reviews
-        fields = ['book', 'email','comment']
+        fields = ("__all__")

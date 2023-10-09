@@ -37,6 +37,7 @@ urlpatterns = [
 
     # path('api/', include('BookListAPI.urls')), 
     path('api/v1/', include('littlelemonAPI.urls')),
+    path('books/', include('BookListAPI.urls')),
     # debug toolbar
     path('__debug__/', include('debug_toolbar.urls')),
 

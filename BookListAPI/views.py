@@ -34,6 +34,30 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework import viewsets
+from .models import Reviews
+from django.http import JsonResponse
+from .forms import ReviewsForms
+
+
+def reviews_view(request):
+    form = ReviewsForms()
+
+    if request.method == "POST":
+        form = ReviewsForms(data=request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            ur = Reviews(
+                # book = cd['book'],
+                email = cd['email'],
+                comment = cd['comment'],
+            )
+            ur.save()
+            return JsonResponse(
+                {"message": 'sucess'}
+            )
+
+    return render(request, 'reviews.html', {'form': form})
+
 
 
 @api_view(['GET','POST'])# http methods supported by this endpoint
