@@ -10,3 +10,7 @@ class Book(models.Model):
         indexes = [
             models.Index(fields=['price']),
             ]
+
+class Reviews(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    comment = models.CharField(max_length=255)

@@ -1,3 +1,2 @@
-.env
-venv
+./lemon.env/
 *.sqlite3
