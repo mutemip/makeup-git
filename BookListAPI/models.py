@@ -13,4 +13,5 @@ class Book(models.Model):
 
 class Reviews(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    email = models.EmailField()
     comment = models.CharField(max_length=255)
