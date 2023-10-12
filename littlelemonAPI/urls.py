@@ -15,7 +15,7 @@ urlpatterns = [
     # FBV urls
     path('menu-item1', views.menu_items), #FBV
     path('menu-item1/<int:pk>', views.single_item),
-    # path('category', views.CategoryView.as_view()),
+        path('category', views.CategoryView.as_view()),
     path('category/<int:pk>',views.category_detail, name='category-detail'),
     
     #API endpoints authorization layer and user role management

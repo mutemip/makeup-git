@@ -43,7 +43,8 @@ def reviews_view(request):
     form = ReviewsForms()
 
     if request.method == "POST":
-        form = ReviewsForms(data=request.POST)
+        form = ReviewsForms(request.POST)
+        # print(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
             ur = Reviews(
